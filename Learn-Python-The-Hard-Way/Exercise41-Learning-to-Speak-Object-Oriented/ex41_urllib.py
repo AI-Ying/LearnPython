@@ -17,7 +17,11 @@ print html
 '''
 
 # 推荐如下这样写
-request = urllib2.Request("http://www.baidu.com")
+request = urllib2.Request("http://learncodethehardway.org/words.txt")
 response = urllib2.urlopen(request)
-print response.read()
+WORDS = []
+for i in response:
+    WORDS.append(i.strip())
+
+print WORDS
 
