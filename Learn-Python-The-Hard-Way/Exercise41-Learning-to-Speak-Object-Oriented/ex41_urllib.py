@@ -93,6 +93,8 @@ print html
 #     listsb =  listsb.replace('hello', 'world')
 # print listsb
 
+
+'''
 dic = {'hello':'Hello', 'world':'World', 'ai':'AI'}
 print dic
 print dic.keys()
@@ -106,4 +108,13 @@ for snippet in snippets:
     phrase = dic[snippet]
     print snippet, phrase
 
+'''
 
+'''
+stringa = 'hello'
+stringb = 'world'
+
+print stringa + stringb
+stringa, stringb = stringb, stringa
+print stringa + stringb
+'''
