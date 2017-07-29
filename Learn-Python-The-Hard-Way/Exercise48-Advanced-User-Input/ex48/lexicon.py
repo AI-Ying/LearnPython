@@ -12,7 +12,7 @@ class lexicon(object):
 def scan(sentence):
         result = []
         words=sentence.split()
-        length = len(words);
+        # length = len(words);
         while words:
             if words[0] in ['east','west','north','south']:
                 result.append(('direction',words[0]))
@@ -29,9 +29,9 @@ def scan(sentence):
                 result.append(('error',words[0]))
             words = words[1:]
         return result
-        
+
 def convert_number(s):
         try:
             return int(s)
         except ValueError:
-            return None 
+            return None
