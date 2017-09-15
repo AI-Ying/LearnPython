@@ -1,0 +1,14 @@
+# -*- coding: utf-8 -*-
+
+# 把URL中多余的部分去掉
+from urllib.parse import urlparse, urlunparse
+
+original = 'http://netloc/path;?#'
+print('ORIG   :', original)
+parsed = urlparse(original)
+print('PARSED :', type(parsed), parsed)
+t = parsed[:]
+print('TUPLE  :', type(t), t)
+print('NEW    :', urlunparse(t))
+
+
