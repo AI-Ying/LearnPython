@@ -1,6 +1,6 @@
 - urllibparse-Split-URLs-into-Components
 
- 主要是URL划分成tupe,dict等用法
+　　主要是URL划分成tupe,dict等用法
 
 - urllibrequest-Network-Resource-Access
 
