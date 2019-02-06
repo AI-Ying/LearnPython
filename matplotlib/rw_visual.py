@@ -30,3 +30,4 @@ while True:
     keep_running = input("Make another walk?(y/n)")
     if keep_running == 'n':
         break
+
