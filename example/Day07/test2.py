@@ -78,9 +78,18 @@ def main():
     for var in f:
         print(var, end=' ')
 
+    print()
+
+    for val in fib(20):
+        print(val, end=' ')
 
 
-
+# 使用yield关键字列表生成器
+def fib(n):
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+        yield a
 
 
 if __name__ == '__main__':

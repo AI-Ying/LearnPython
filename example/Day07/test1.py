@@ -5,6 +5,7 @@
 # Description : 字符串使用
 
 
+
 def main():
     """docstring for main"""
     str1 = "hello, world!"
