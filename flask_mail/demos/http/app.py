@@ -1,9 +1,12 @@
 from flask import Flask, request, jsonify, session,\
-                  make_response, url_for, redirect, abort, Response
-import json
+                  make_response, url_for, redirect, abort, Response, \
+                  session
+# from flask_script import Manager
+import json, os
 
 app = Flask(__name__)
 
+# manager = Manager(app)
 
 # 127.0.0.1:5000?city=Beijing&country=china&city=nanchang  ？后面的是查询字符串
 # POST和GET一样也可以使用查询字符串
@@ -110,11 +113,60 @@ def json_res():
     # return jsonify(name='Grey Li', gender='male'), 500
 
 
+@app.route('/set_cookie')
+def set_cookie():
+    """docstring for set_cookie"""
+    # 设置cookie，默认是临时cookie，浏览器关闭就失效
+    res = make_response('success')
+    res.set_cookie('name1', 'ai')
+    res.set_cookie('name2', 'ying')
+    # 设置有效期，单位秒
+    res.set_cookie('name3', 'tom', max_age=3600)
+
+    # 通过header来设置cookie
+    res.headers['Set-Cookie'] = "name4=join; Expires=Thu," \
+        + "28-Feb-2019 08:30:14 GMT; Max-Age=3600; Path=/"
+
+    return res
+
+
+@app.route('/get_cookie')
+def get_cookie():
+    # 获取cookie
+    cookie = request.cookies.get('name3')
+    return cookie
+
+
+@app.route('/delete_cookie')
+def delete_cookie():
+    res = make_response('delete_cookie')
+    res.delete_cookie('name3')
+    return res
+
+
 @app.route('/note')
 def foo():
     response = make_response('Hello')
     response.mimetype = 'text/plain'
     return response
+
+
+@app.route('/secret')
+def secret():
+    """docstring for secret"""
+    # 从.env文件中获取SECRET_KEY, 如果SECRET_KEY为空，那么使用默认的第二个参数作为SECRET_KEY
+    app.secret_key = os.getenv('SECRET_KEY', 'ksjdaksdfjak8934523kjfka')
+    return app.secret_key
+
+
+@app.route('/set_session')
+def set_session():
+    # flask的session使用需要使用SECERT_KEY
+    app.secret_key = os.getenv('SECRET_KEY', 'ksjdaksdfjak8934523kjfka')
+    # flask 默认把session保存在cookie中
+    print(app.secret_key)
+    session['name'] = 'ai'
+    return 'login sucess'
 
 
 @app.route('/hello')
@@ -137,6 +189,47 @@ def bar():
         .format(url_for('hello', next=request.full_path))
 
 
+@app.route('/hook')
+def hook():
+    """docstring for hook"""
+    # 1/0
+    print('hook test')
+    return 'hook test'
+
+
+@app.before_first_request
+def hand_before_first_request():
+    # 第一次请求处理前被执行
+    print("hand_before_first_request():第一次请求处理前被执行")
+
+
+@app.before_request
+def hand_before_request():
+    # 每次请求处理前被执行
+    print("hand_before_request():每次请求处理前被执行")
+
+
+# @app.after_this_request
+# def hand_after_this_request(res):
+#     # 某个视图函数请求处理后被执行, 必须带有响应对象参数
+#     print("hand_after_this_request(res):某个视图函数请求处理后被执行")
+#     return res
+
+
+@app.after_request
+def hand_after_request(res):
+    # 每次请求视图函数处理后执行，前提是视图函数没有异常
+    print("hand_after_request(res):每次请求视图函数处理后执行，前提是视图函数没有异常")
+    return res
+
+
+@app.teardown_request
+def hand_teardown_request(res):
+    # 每次请求视图函数处理后执行，无论视图函数是否有异常, 前提必须实在生产模式，即Debug=False
+    print("hand_teardown_request(res):# 每次请求视图函数处理后执行，无论视图函数是否有异常")
+    return res
+
+
 @app.route('/abort')
 def abort_error():
     name = request.form.get('name')
@@ -147,7 +240,7 @@ def abort_error():
         # 1.返回状态码(常用)
         abort(404)
         # 2.返回响应体信息
-        # res = Response("failed")
+        # res = response("failed")
         #  abort(res)
 
 
