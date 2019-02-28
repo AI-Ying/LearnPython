@@ -1,0 +1,26 @@
+<!DOCTYPE html> 
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+    <title>Title</title>
+    
+</head>
+<body>
+    <!-- 模板变量 -->
+    <p>name = {{ name }}</p>    
+    <p>age = {{ age }}</p>
+    <p>my_dic:city = {{ my_dic['city'] }}</p>
+    <p>my_dic:city = {{ my_dic.city }}</p>
+    <p>my_list[0] = {{ my_list[0] }}</p>
+    <p>my_list[my_int] = {{ my_list[my_int] }}</p>
+    <p>my_list[0] + my_list[1] = {{ my_list[0]+my_list[1] }}</p>
+    <p>{{'hello' + ' flask'}}</p>
+    <!-- (字符串|列表|自定义)过滤器 -->
+    <p>a{{ '   hello   flask   ' | trim | upper }}a</p>
+    <p>my_list[0] = {{ my_list | first }}</p>
+    <p>my_list_sum = {{ my_list | sum }}</p>
+    <p>my_list_split2 = {{ my_list | lis2 }}</p>
+    <p>my_list_split3 = {{ my_list | lis3 }}</p>
+</body>
+</html>
