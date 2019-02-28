@@ -1,7 +1,9 @@
 # app
 # FLASK_APP=demos/hello/app.py
  
-FLASK_APP=demos/http/app.py
+# FLASK_APP=demos/http/app.py
+
+FLASK_APP=demos/templates/app.py
 
 # debug enabled
 FLASK_ENV=development
